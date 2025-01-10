@@ -56,6 +56,7 @@ transform = T.Compose([
 
 # Function to reconstruct and visualize images
 def visualize_reconstruction(image_paths, vae):
+    i = 0
     for img_path in image_paths:
         # Load and preprocess tactile image
         img = Image.open(img_path).convert("RGB")
@@ -74,12 +75,14 @@ def visualize_reconstruction(image_paths, vae):
         # Visualize original and reconstructed images
         fig, axes = plt.subplots(1, 2, figsize=(10, 5))
         axes[0].imshow(original_img)
-        axes[0].set_title("Original Rock Tactile Image")
+        axes[0].set_title(f"Original {img_path}")
         axes[0].axis("off")
         axes[1].imshow(reconstructed_img)
-        axes[1].set_title("Reconstructed Rock Tactile Image")
+        axes[1].set_title(f"Reconstructed {img_path}")
         axes[1].axis("off")
-        plt.show()
+        # Save the combined figure as one image
+        fig.savefig(f"combined_image_{i}.png", bbox_inches='tight')  # Save figure
+        i += 1
 
 
 # Run visualization for all tactile images
